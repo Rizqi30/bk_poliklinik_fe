@@ -162,7 +162,8 @@ const Home = () => {
           const time = new Date(`${date}T${item.jam_mulai}`);
           if (
             item.dokter.poli.nama_poli === selectedPoli &&
-            time >= currentDate
+            time >= currentDate &&
+            item.status === "Y"
           ) {
             return {
               value: item.id,
@@ -185,7 +186,7 @@ const Home = () => {
   return (
     <>
       <ToastContainer />
-      <Navbar rounded className="shadow-md py-5 bg-[#00008B]">
+      <Navbar className="shadow-md py-5 bg-[#00008B]">
         <Navbar.Brand as={Link} href="https://flowbite-react.com">
           <img
             src={udinus}
@@ -280,7 +281,7 @@ const Home = () => {
         </Navbar.Collapse>
       </Navbar>
 
-      <main className="container mx-auto mt-8">
+      <main className="container mx-auto mt-8 ">
         {/* Hero Section */}
         <section className="relative h-[100px] lg:h-[600px] overflow-hidden">
           <img
@@ -295,33 +296,35 @@ const Home = () => {
             <p className="text-lg lg:text-xl mb-6">
               There are many expert doctors here.
             </p>
-            <p className="mt-4">
-              {role === "pasien" ? (
-                <button
-                  className="bg-green-900 p-2 px-3 mt-4 text-white flex w-fit items-center rounded-md"
-                  onClick={() => handleOpenDaftarPoli()}
-                >
-                  Daftar Poli
-                  <MdOutlineArrowRightAlt color="white" className="ml-2" />
-                </button>
-              ) : role === "admin" || role === "dokter" ? (
-                <Link
-                  to={`/${role}/${role === "admin" ? admin.id : dokter.id}`}
-                  className="bg-blue-900 p-2 px-3 mt-4 text-white flex w-fit items-center rounded-md"
-                >
-                  Dashboard{" "}
-                  <MdOutlineArrowRightAlt color="white" className="ml-2" />
-                </Link>
-              ) : (
-                <Link
-                  to={`/login`}
-                  className="bg-blue-900 p-2 px-3 mt-4 text-white flex w-fit items-center rounded-md"
-                >
-                  Register Now{" "}
-                  <MdOutlineArrowRightAlt color="white" className="ml-2" />
-                </Link>
-              )}
-            </p>
+            <div className="flex justify-center items-center">
+              <p className="mt-4">
+                {role === "pasien" ? (
+                  <button
+                    className="bg-blue-900 p-2 px-3 mt-4 text-white flex w-fit items-center rounded-md"
+                    onClick={() => handleOpenDaftarPoli()}
+                  >
+                    Daftar Poli
+                    <MdOutlineArrowRightAlt color="white" className="ml-2" />
+                  </button>
+                ) : role === "admin" || role === "dokter" ? (
+                  <Link
+                    to={`/${role}/${role === "admin" ? admin.id : dokter.id}`}
+                    className="bg-blue-900 p-2 px-3 mt-4 text-white flex w-fit items-center rounded-md"
+                  >
+                    Dashboard{" "}
+                    <MdOutlineArrowRightAlt color="white" className="ml-2" />
+                  </Link>
+                ) : (
+                  <Link
+                    to={`/login`}
+                    className="bg-blue-900 p-2 px-3 mt-4 text-white flex w-fit items-center rounded-md"
+                  >
+                    Register Now{" "}
+                    <MdOutlineArrowRightAlt color="white" className="ml-2" />
+                  </Link>
+                )}
+              </p>
+            </div>
           </div>
           <Modals
             openModal={daftarPoli}

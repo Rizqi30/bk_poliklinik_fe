@@ -14,7 +14,6 @@ import {
   registerPasien,
 } from "../../config/Redux/Action/pasienAction";
 import { ToastContainer } from "react-toastify";
-import transition from "../../transition";
 
 const LoginPortal = () => {
   const dispatch = useDispatch();
@@ -80,17 +79,16 @@ const LoginPortal = () => {
 
   return (
     <>
-      <div className="min-h-screen relative">
-        <div className="bg-[#00008B] absolute top-0 h-[50%] w-full z-0" />
-        <ToastContainer className={"z-40"} />
-        <div className="flex items-center h-screen justify-center flex-col container mx-auto relative z-20">
+      <ToastContainer />
+      <div className=" bg-[#00008B]">
+        <div className="flex items-center justify-center flex-col container mx-auto py-[10rem] ">
           <h1 className="text-4xl font-bold text-white mb-[5rem]">
             {" "}
             Login Portal{" "}
           </h1>
-          <div className="grid grid-cols-2 gap-8 w-full">
+          <div className="w-full flex flex-col items-center">
             {/* Login Admin */}
-            <div className="flex flex-col justify-center items-start bg-white text-black p-5 rounded shadow-lg">
+            <div className="flex flex-col justify-center items-start bg-white text-black p-5 rounded shadow-lg w-[50rem]">
               <div className="bg-[#00008B] p-4 rounded">
                 <FaUserAlt size={25} color="white" />
               </div>
@@ -99,13 +97,13 @@ const LoginPortal = () => {
                 Apabila Anda adalah pasien, silahkan login disini.
               </p>
               <button
-                className="bg-white text-[#1B4242] rounded-full py-2 mt-3 flex items-center hover:underline"
+                className="bg-white text-[#12486B] rounded-full py-2 mt-3 flex items-center hover:underline"
                 onClick={() => setPasien(true)}
               >
                 Klik Disini <MdOutlineArrowRightAlt className="ml-2" />
               </button>
             </div>
-            <div className="flex flex-col justify-center items-start bg-white text-black p-5 rounded shadow-lg">
+            <div className="flex flex-col justify-center items-start bg-white text-black p-5 rounded shadow-lg w-[50rem] my-3">
               <div className="bg-[#00008B] p-4 rounded">
                 <FaUserAlt size={25} color="white" />
               </div>
@@ -114,13 +112,13 @@ const LoginPortal = () => {
                 Apabila Anda adalah dokter, silahkan login disini.
               </p>
               <button
-                className="bg-white text-[#1B4242] rounded-full py-2 mt-3 flex items-center hover:underline"
+                className="bg-white text-[#12486B] rounded-full py-2 mt-3 flex items-center hover:underline"
                 onClick={() => setDokter(true)}
               >
                 Klik Disini <MdOutlineArrowRightAlt className="ml-2" />
               </button>
             </div>
-            <div className="flex flex-col justify-center items-start bg-white text-black p-5 rounded shadow-lg">
+            <div className="flex flex-col justify-center items-start bg-white text-black p-5 rounded shadow-lg w-[50rem]">
               <div className="bg-[#00008B] p-4 rounded">
                 <FaUserAlt size={25} color="white" />
               </div>
@@ -129,7 +127,7 @@ const LoginPortal = () => {
                 Apabila Anda adalah admin, silahkan login disini.
               </p>
               <button
-                className="bg-white text-[#1B4242] rounded-full py-2 mt-3 flex items-center hover:underline"
+                className="bg-white text-[#12486B] rounded-full py-2 mt-3 flex items-center hover:underline"
                 onClick={() => setAdmin(true)}
               >
                 Klik Disini <MdOutlineArrowRightAlt className="ml-2" />
@@ -137,6 +135,7 @@ const LoginPortal = () => {
             </div>
           </div>
         </div>
+
         <Modals
           openModal={pasien}
           setOpenModal={setPasien}
@@ -178,7 +177,7 @@ const LoginPortal = () => {
                     required
                   />
                 </div>
-                <div className="flex justify-end text-sm text-[#1B4242] hover:underline my-1">
+                <div className="flex justify-end text-sm text-[#132043] hover:underline my-1">
                   <button onClick={() => setRegister(true)}>
                     Belum punya akun?
                   </button>
@@ -192,7 +191,7 @@ const LoginPortal = () => {
                   </div>
                   {loading ? (
                     <button
-                      className="bg-[#1E90FF] text-white p-2 px-4 rounded-lg w-fit"
+                      className="bg-[#12486B] text-white p-2 px-4 rounded-lg w-fit"
                       type="button"
                     >
                       <Spinner
@@ -334,7 +333,7 @@ const LoginPortal = () => {
                   </div>
                   {loading ? (
                     <button
-                      className="bg-[#1E90FF] text-white p-2 px-4 rounded-lg w-fit"
+                      className="bg-[#12486B] text-white p-2 px-4 rounded-lg w-fit"
                       type="button"
                     >
                       <Spinner
@@ -344,17 +343,17 @@ const LoginPortal = () => {
                     </button>
                   ) : (
                     <button
-                      className="bg-[#1E90FF] text-white p-2 px-4 rounded-lg w-fit"
+                      className="bg-[#1E90FF  ] text-white p-2 px-4 rounded-lg w-fit"
                       type="submit"
                     >
                       Register
                     </button>
                   )}
                 </div>
-                <div className="flex justify-end text-sm text-[#1B4242] hover:underline my-1">
+                <div className="flex justify-end text-sm text-[#132043] hover:underline my-1">
                   <button
                     onClick={() => setRegister(false)}
-                    className="text-[#1B4242]"
+                    className="text-[#132043]"
                     type="button"
                   >
                     Sudah memiliki akun?
@@ -414,7 +413,7 @@ const LoginPortal = () => {
                   </div>
                   {loading ? (
                     <button
-                      className="bg-[#1E90FF] text-white p-2 px-4 rounded-lg w-fit"
+                      className="bg-[#12486B] text-white p-2 px-4 rounded-lg w-fit"
                       type="button"
                     >
                       <Spinner
@@ -485,7 +484,7 @@ const LoginPortal = () => {
                   </div>
                   {loading ? (
                     <button
-                      className="bg-[#1E90FF] text-white p-2 px-4 rounded-lg w-fit"
+                      className="bg-[#12486B] text-white p-2 px-4 rounded-lg w-fit"
                       type="button"
                     >
                       <Spinner

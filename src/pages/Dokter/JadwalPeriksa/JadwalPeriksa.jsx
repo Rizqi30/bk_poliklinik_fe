@@ -8,10 +8,7 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-import {
-  deleteJadwalPeriksa,
-  getJadwalPeriksa,
-} from "../../../config/Redux/Action/jadwalPeriksaAction";
+import { getJadwalPeriksa } from "../../../config/Redux/Action/jadwalPeriksaAction";
 
 const JadwalPeriksa = () => {
   const pathName = useLocation().pathname;
@@ -43,15 +40,7 @@ const JadwalPeriksa = () => {
     return `${day} ${month} ${year}`;
   };
 
-  const handleDelete = (id) => {
-    dispatch(deleteJadwalPeriksa(id));
-  };
-
   useEffect(() => {
-    // Mendapatkan waktu saat ini
-    const now = new Date();
-
-    // Lakukan pengecekan untuk setiap item jadwalPeriksa
     const updatedJadwal = jadwalPeriksa.map((item) => {
       if (item.id_dokter === id) {
         return item;
@@ -73,7 +62,7 @@ const JadwalPeriksa = () => {
   }, [role]);
 
   return (
-    <div className="container min-h-[90vh] m-5 my-[3rem] mx-auto">
+    <div className="container min-h-[90vh] m-5 my-[3rem]">
       <div className="flex justify-between">
         <h1 className="text-xl font-medium">Jadwal Periksa</h1>
         <h1>{pathName}</h1>
@@ -98,11 +87,14 @@ const JadwalPeriksa = () => {
                 <Table.HeadCell>Jam Mulai</Table.HeadCell>
                 <Table.HeadCell>Jam Selesai</Table.HeadCell>
                 <Table.HeadCell>Tanggal</Table.HeadCell>
+                <Table.HeadCell>Status</Table.HeadCell>
+
                 <Table.HeadCell>Aksi</Table.HeadCell>
               </Table.Head>
               <Table.Body className="divide-y">
-                {jadwal.map((item, index) => {
-                  if (item.id_dokter === id) {
+                {jadwal
+                  .filter((item) => item.id_dokter === id)
+                  .map((item, index) => {
                     return (
                       <Table.Row key={index}>
                         <Table.Cell>{index + 1}</Table.Cell>
@@ -112,12 +104,11 @@ const JadwalPeriksa = () => {
                         <Table.Cell>{timeFormat(item.jam_selesai)}</Table.Cell>
                         <Table.Cell>{dateFormat(item.tanggal)}</Table.Cell>
                         <Table.Cell>
+                          {item.status === "Y" ? "Aktif" : "Tidak Aktif"}
+                        </Table.Cell>
+                        <Table.Cell>
                           <Link
-                            className={`bg-[#5C8374] p-2 rounded text-white mx-2 ${
-                              item.status === "N"
-                                ? "opacity-50 pointer-events-none"
-                                : ""
-                            }`}
+                            className={`bg-[#5C8374] p-2 rounded text-white mx-2 `}
                             to={`/dokter/jadwal-periksa/kelola-jadwal/${item.id}/${id}`}
                           >
                             Edit
@@ -125,8 +116,7 @@ const JadwalPeriksa = () => {
                         </Table.Cell>
                       </Table.Row>
                     );
-                  }
-                })}
+                  })}
               </Table.Body>
             </Table>
           </div>

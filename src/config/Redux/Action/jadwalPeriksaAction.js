@@ -1,5 +1,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 export const getJadwalPeriksa = () => {
   return async (dispatch) => {
@@ -49,6 +50,7 @@ export const addJadwalPeriksa = (data, nav) => {
       dispatch(getJadwalPeriksa());
     } catch (err) {
       console.log(err);
+      toast.error(err.response.data.error);
     }
   };
 };
@@ -71,6 +73,7 @@ export const updateJadwalPeriksa = (id, data, nav) => {
       dispatch(getJadwalPeriksa());
     } catch (err) {
       console.log(err);
+      toast.error(err.response.data.error);
     }
   };
 };

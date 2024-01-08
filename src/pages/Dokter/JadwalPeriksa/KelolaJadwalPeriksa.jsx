@@ -43,26 +43,11 @@ const KelolaJadwalPeriksa = () => {
   };
 
   useEffect(() => {
-    if (idJadwal) {
+    if (idJadwal !== undefined && idJadwal !== null) {
+      // Lakukan sesuatu ketika idJadwal memiliki nilai yang valid
       dispatch(getJadwalPeriksaById(idJadwal));
-    }
-  }, [dispatch, idJadwal]);
-
-  useEffect(() => {
-    if (jadwalPeriksaById) {
-      setAddForm({
-        id_dokter: id,
-        hari: jadwalPeriksaById.hari,
-        jam_mulai: jadwalPeriksaById.jam_mulai,
-        jam_selesai: jadwalPeriksaById.jam_selesai,
-        tanggal: jadwalPeriksaById.tanggal,
-        status: jadwalPeriksaById.status,
-      });
-    }
-  }, [id, jadwalPeriksaById]);
-
-  useEffect(() => {
-    if (idJadwal === undefined) {
+    } else {
+      // Jika idJadwal adalah null atau undefined, atur kembali addForm
       setAddForm({
         id_dokter: id,
         hari: "",
@@ -72,10 +57,23 @@ const KelolaJadwalPeriksa = () => {
         status: "",
       });
     }
-  }, [dispatch, idJadwal]);
+  }, [dispatch, id, idJadwal]);
+
+  useEffect(() => {
+    if (jadwalPeriksaById && idJadwal !== undefined) {
+      setAddForm({
+        id_dokter: id,
+        hari: jadwalPeriksaById.hari,
+        jam_mulai: jadwalPeriksaById.jam_mulai,
+        jam_selesai: jadwalPeriksaById.jam_selesai,
+        tanggal: jadwalPeriksaById.tanggal,
+        status: jadwalPeriksaById.status,
+      });
+    }
+  }, [id, jadwalPeriksaById, idJadwal]);
 
   return (
-    <div className="container min-h-[90vh] m-5 my-[3rem] mx-auto">
+    <div className="container min-h-[90vh] m-5 my-[3rem] ">
       <div className="flex justify-between">
         <h1 className="text-xl font-medium">Jadwal Periksa</h1>
         <h1>{pathName}</h1>
@@ -146,13 +144,10 @@ const KelolaJadwalPeriksa = () => {
             />
             <ReactSelect
               title="Status"
-              value={
-                addForm.status === "Y"
-                  ? { label: "Aktif" }
-                  : addForm.status === "N"
-                  ? { label: "Tidak Aktif" }
-                  : null
-              }
+              value={{
+                value: addForm.status,
+                label: addForm.status === "Y" ? "Aktif" : "Tidak Aktif",
+              }}
               onChange={(e) => setAddForm({ ...addForm, status: e.value })}
               data={[
                 { value: "Y", label: "Aktif" },
